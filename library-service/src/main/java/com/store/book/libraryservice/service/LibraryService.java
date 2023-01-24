@@ -9,6 +9,8 @@ import com.store.book.libraryservice.repository.LibraryRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LibraryService {
 
@@ -46,5 +48,13 @@ public class LibraryService {
         library.getUserBook().add(bookId);
 
         libraryRepository.save(library);
+    }
+
+    public List<String> getAllLibraries() {
+
+        return libraryRepository.findAll()
+                .stream()
+                .map(Library::getId)
+                .toList();
     }
 }

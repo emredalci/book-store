@@ -16,11 +16,11 @@ public interface BookServiceClient {
     Logger logger = LoggerFactory.getLogger(BookServiceClient.class);
 
     @GetMapping("/isbn/{isbn}")
-    ResponseEntity<BookIdDto> getBookByIsbn(@PathVariable String isbn);
+    ResponseEntity<BookIdDto> getBookByIsbn(@PathVariable(value = "isbn") String isbn);
 
     @GetMapping("/book/{id}")
     @CircuitBreaker(name = "getBookByIdCircuitBreaker", fallbackMethod = "getBookByIdFallback")
-    ResponseEntity<BookDto> getBookById(@PathVariable String id);
+    ResponseEntity<BookDto> getBookById(@PathVariable(value = "id") String id);
 
     default ResponseEntity<BookDto> getBookByIdFallback(String id, Exception exception) {
         logger.info("Book not found by id  {}, returning default BookDto object", id);
